@@ -13,6 +13,7 @@ public:
     void printList();
     void deleteNode(const int& index);
     bool search(const T& value);
+    T searchFromEnd(const int& index);
     void insert(const T& value,const int& index);
 
     bool hasCycle();
@@ -269,4 +270,38 @@ void List<T>::reverse()
         current = rightPoint;
     }
     head = leftPoint;
+}
+
+template <typename T>
+T List<T>::searchFromEnd(const int& index)
+{
+    if (head == nullptr)
+    {
+        std::cout<<"The list is empty"<<std::endl;
+        return T();
+    }
+    
+    int length = 0;
+    Node* temp = head;
+    while (temp != nullptr)
+    {
+        temp = temp->next;
+        ++length;
+    }
+    
+    if (index < 0 || index >= length)
+    {
+        std::cout<<"The index is  under length."<<std::endl;
+        return T();
+    }
+
+    int wanted = (length - 1) - index;
+
+    temp = head;
+    for (size_t i = 0; i < wanted; ++i)
+    {
+        temp = temp->next;
+    }
+    
+    return temp->data;
 }
